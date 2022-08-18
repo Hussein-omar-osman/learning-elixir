@@ -15,6 +15,9 @@ defmodule ModulesFunctions do
   def say_whatever(staff) do
     IO.puts(staff)
   end
+  def read_file(filename) do
+    File.read(filename)
+  end
 end
 
 
