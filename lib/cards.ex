@@ -28,4 +28,9 @@ defmodule Cards do
   def contains?(deck, card) do
     Enum.member?(deck, card)
   end
+
+  def deal(deck, many) do
+    new_deck = Cards.shuffle(deck)
+    Enum.split(new_deck, many)
+  end
 end
