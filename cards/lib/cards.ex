@@ -29,7 +29,7 @@ defmodule Cards do
     Enum.member?(deck, card)
   end
 
-  def deall(deck, many) do
+  def deal(deck, many) do
     new_deck = Cards.shuffle(deck)
     Enum.split(new_deck, many)
   end
