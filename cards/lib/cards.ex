@@ -33,4 +33,9 @@ defmodule Cards do
     new_deck = Cards.shuffle(deck)
     Enum.split(new_deck, many)
   end
+
+  def save(deck, filename) do
+    binary = :erlang.term_to_binary(deck)
+    File.write(filename, binary)
+  end
 end
