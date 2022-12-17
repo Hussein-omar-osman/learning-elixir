@@ -12,4 +12,11 @@ defmodule CardsTest do
     hand_length = length(hand)
     assert hand_length == 5
   end
+
+  test "check if cards are shuffled" do
+    deck = Cards.create_deck
+    shuffled_deck = Cards.shuffle(deck)
+    # assert deck != shuffled_deck
+    refute deck == shuffled_deck
+  end
 end
