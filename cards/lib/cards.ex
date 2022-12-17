@@ -24,12 +24,27 @@ defmodule Cards do
 
   @doc """
     Checks if a certain card is in a deck
+
+    ## Examples
+
+      iex> deck = Cards.create_deck
+      iex> Cards.contains?(deck, "Two of Clubs")
+      true
+
   """
   def contains?(deck, card) do
     Enum.member?(deck, card)
   end
   @doc """
     Deals some given number of cards
+
+    ## Examples
+
+      iex> deck = Cards.create_deck
+      iex> {hand, _rest} = Cards.deal(deck, 1)
+      iex> hand
+      ["Ace of Spades"]
+
   """
   def deal(deck, many) do
     Enum.split(deck, many)
