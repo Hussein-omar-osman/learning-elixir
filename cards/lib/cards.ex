@@ -30,8 +30,7 @@ defmodule Cards do
   end
 
   def deal(deck, many) do
-    new_deck = Cards.shuffle(deck)
-    Enum.split(new_deck, many)
+    Enum.split(deck, many)
   end
 
   def save(deck, filename) do
@@ -52,6 +51,16 @@ defmodule Cards do
       {:ok, binary} -> :erlang.binary_to_term(binary)
       {:error, _reason} -> "The file provided does not exist"
     end
-
   end
+
+  def create_hand(hand_size) do
+    # Without the pipe operator
+    # deck = Cards.create_deck
+    # deck = Cards.shuffle(deck)
+    # Cards.deal(deck, hand_size)
+
+    # With the pipe operator
+    Cards.create_deck |> Cards.shuffle |> Cards.deal(hand_size)
+  end
+
 end
