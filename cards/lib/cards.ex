@@ -59,7 +59,8 @@ defmodule Cards do
     # deck = Cards.shuffle(deck)
     # Cards.deal(deck, hand_size)
 
-    # With the pipe operator
+    # With the pipe operator and
+    # be keen because pipe operator always passes the results to the next func as the first argument
     Cards.create_deck |> Cards.shuffle |> Cards.deal(hand_size)
   end
 
