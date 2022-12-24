@@ -1,3 +1,3 @@
-defmodule Identicon.Image do
-  defstruct hex: nil, color: nil, grid: nil, pixel_map: nil
+defmodule ImageStruct do
+  defstruct [:hex, :color, :grid, :pixel_map]
 end

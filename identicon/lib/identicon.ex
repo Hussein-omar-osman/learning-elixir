@@ -8,7 +8,7 @@ defmodule Identicon do
 
   def hash_input(input) do
     hex = :crypto.hash(:md5, input) |> :binary.bin_to_list
-    %Identicon.Image{hex: hex}
+    %ImageStruct{hex: hex}
   end
 
   def pick_color(image) do
@@ -16,13 +16,13 @@ defmodule Identicon do
     # [r, g, b | _tail] = hex_list
     # [r, g, b]
     # or you can do this
-    %Identicon.Image{hex: [r, g, b | _tail]} = image
-    %Identicon.Image{image | color: {r, g, b}}
+    %ImageStruct{hex: [r, g, b | _tail]} = image
+    %ImageStruct{image | color: {r, g, b}}
   end
 
-  def build_grid(%Identicon.Image{hex: hex} = image) do
+  def build_grid(%ImageStruct{hex: hex} = image) do
     grid = hex |> Enum.chunk(3) |> Enum.map(&mirror_row/1) |> List.flatten |> Enum.with_index
-    %Identicon.Image{image | grid: grid}
+    %ImageStruct{image | grid: grid}
   end
 
   def mirror_row(row) do
@@ -32,14 +32,14 @@ defmodule Identicon do
     row ++ [second , first]
   end
 
-  def filter_odd_squares(%Identicon.Image{grid: grid} = image) do
+  def filter_odd_squares(%ImageStruct{grid: grid} = image) do
     new_grid = Enum.filter grid, fn({code, _index}) ->
                 rem(code, 2) == 0
               end
-    %Identicon.Image{image | grid: new_grid}
+    %ImageStruct{image | grid: new_grid}
   end
 
-  def build_pixel_map(%Identicon.Image{grid: grid} = image) do
+  def build_pixel_map(%ImageStruct{grid: grid} = image) do
 
     pixel_map = Enum.map grid, fn({_code, index}) ->
       horizontal = rem(index, 5) * 50
@@ -51,10 +51,10 @@ defmodule Identicon do
       {top_left, bottom_right}
     end
 
-    %Identicon.Image{image | pixel_map: pixel_map}
+    %ImageStruct{image | pixel_map: pixel_map}
   end
 
-  def draw_image(%Identicon.Image{color: color, pixel_map: pixel_map}) do
+  def draw_image(%ImageStruct{color: color, pixel_map: pixel_map}) do
     image = :egd.create(250, 250)
     fill = :egd.color(color)
 
